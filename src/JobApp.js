@@ -104,7 +104,7 @@ class JobApp extends Component {
               value={this.state.candName}
               onChange={this.handleChange}
               onBlur={this.handleBlur}
-              // required
+              required
             />
             <span className="error">{this.state.errors.candName}</span>
           </div>
@@ -120,7 +120,7 @@ class JobApp extends Component {
               value={this.state.candEmail}
               onChange={this.handleChange}
               onBlur={this.handleBlur}
-              // required
+              required
             />
             <span className="error">{this.state.errors.candEmail}</span>
           </div>
@@ -137,7 +137,7 @@ class JobApp extends Component {
               value={this.state.candAge}
               onChange={this.handleChange}
               onBlur={this.handleBlur}
-              // required
+              required
             />
             <span className="error">{this.state.errors.candAge}</span>
           </div>
@@ -152,7 +152,7 @@ class JobApp extends Component {
               name="roleApplied"
               onChange={this.handleChange}
               onBlur={this.handleBlur}
-              // required
+              required
             >
               <option value="">---Select a Role---</option>
               <option value="react">React developer</option>
@@ -172,7 +172,7 @@ class JobApp extends Component {
               checked={this.state.termsCond}
               onChange={this.handleChange}
               onBlur={this.handleBlur}
-              // required
+              required
             />
             <label>I agree to Terms & Conditions.</label>
             <span className="error">{this.state.errors.termsCond}</span>
