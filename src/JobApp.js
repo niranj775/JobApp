@@ -16,6 +16,13 @@ class JobApp extends Component {
         roleApplied: "",
         termsCond: "",
       },
+      touched: {
+        candName: false,
+        candEmail: false,
+        candAge: false,
+        roleApplied: false,
+        termsCond: false,
+      },
     };
   }
 
@@ -37,7 +44,13 @@ class JobApp extends Component {
       }
       case "candAge": {
         //Validation for Candidate Age
-        errors.candAge = !value ? "Please enter the age." : "";
+        if (!value) {
+          errors.candAge = "Please enter the age.";
+        } else if (value < 18) {
+          errors.candAge = "Age should be greater than 18.";
+        } else {
+          errors.candAge = "";
+        }
         break;
       }
       case "roleApplied": {
@@ -54,14 +67,26 @@ class JobApp extends Component {
       }
     }
 
-    console.log(this.state.errors);
+    // console.log(this.state.errors);
 
     this.setState({ ...this.state, [name]: value, errors });
   };
 
+  handleBlur = ({ target: { name } }) => {
+    const touched = { ...this.state.touched, [name]: true };
+    this.setState({ touched });
+  };
+
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log(this.state);
+    const notTouched = Object.values(this.state.touched).filter((err) => !err);
+    // console.log(notTouched);
+    const errors = Object.values(this.state.errors).filter((err) => !err == "");
+    // console.log(this.state);
+    if (!notTouched.length && !errors.length) {
+      // Valid
+      console.log(this.state);
+    } else return false;
   };
 
   render() {
@@ -78,7 +103,8 @@ class JobApp extends Component {
               placeholder="Enter candidate's name"
               value={this.state.candName}
               onChange={this.handleChange}
-              required
+              onBlur={this.handleBlur}
+              // required
             />
             <span className="error">{this.state.errors.candName}</span>
           </div>
@@ -93,7 +119,8 @@ class JobApp extends Component {
               placeholder="Enter candidate's e-mail"
               value={this.state.candEmail}
               onChange={this.handleChange}
-              required
+              onBlur={this.handleBlur}
+              // required
             />
             <span className="error">{this.state.errors.candEmail}</span>
           </div>
@@ -109,7 +136,8 @@ class JobApp extends Component {
               placeholder="Enter candidate's age"
               value={this.state.candAge}
               onChange={this.handleChange}
-              required
+              onBlur={this.handleBlur}
+              // required
             />
             <span className="error">{this.state.errors.candAge}</span>
           </div>
@@ -123,7 +151,8 @@ class JobApp extends Component {
               value={this.state.roleApplied}
               name="roleApplied"
               onChange={this.handleChange}
-              required
+              onBlur={this.handleBlur}
+              // required
             >
               <option value="">---Select a Role---</option>
               <option value="react">React developer</option>
@@ -142,7 +171,8 @@ class JobApp extends Component {
               name="termsCond"
               checked={this.state.termsCond}
               onChange={this.handleChange}
-              required
+              onBlur={this.handleBlur}
+              // required
             />
             <label>I agree to Terms & Conditions.</label>
             <span className="error">{this.state.errors.termsCond}</span>
